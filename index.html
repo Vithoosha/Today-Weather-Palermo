@@ -12,16 +12,37 @@
     <header>
       <select name="comuni" id="comuni" onchange="getData()"></select>
     </header>
+
     <main>
       <div class="wrapper">
-        <div class="weather_wrapper">
-          <img class="weather_icon" src="" alt="" />
-          <p class="text"></p>
+        <img src="" alt="" class="weather_icon" />
+        <h2 class="text"></h2>
+
+        <div class="temperatures">
+          <h1 class="tempC"></h1>
+          <div class="min_max">
+            <p class="min"></p>
+            <p class="max"></p>
+          </div>
         </div>
-        <p class="tempC"></p>
-        <p class="temp_max_min"></p>
+      </div>
+
+      <div class="info">
+        <div class="pressure_info">
+          <h3>Pressure</h3>
+          <p class="pressure"></p>
+        </div>
+        <div class="wind_info">
+          <h3>Wind</h3>
+          <p class="wind"></p>
+        </div>
+        <div class="humidity_info">
+          <h3>Humidity</h3>
+          <p class="humidity"></p>
+        </div>
       </div>
     </main>
+
     <script src="js/script.js"></script>
   </body>
 </html>

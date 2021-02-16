@@ -1,15 +1,15 @@
 "use strict";
 
 const select = document.querySelector("#comuni");
-const form = document.querySelector(".form");
-const container = document.querySelector("main");
 
-const wrapper = document.querySelector(".wrapper");
-const weatherWrapper = document.querySelector(".weather_wrapper");
 const img = document.querySelector(".weather_icon");
 const text = document.querySelector(".text");
 const temp = document.querySelector(".tempC");
-const tempMinMax = document.querySelector(".temp_max_min");
+const min = document.querySelector(".min");
+const max = document.querySelector(".max");
+const pressureInfo = document.querySelector(".pressure");
+const windInfo = document.querySelector(".wind");
+const humidityInfo = document.querySelector(".humidity");
 
 let state = {
   config: {
@@ -355,15 +355,24 @@ function getUrl(select) {
   return `${base_url}${select}&units=metric&appid=${api_key}`;
 }
 
-function WeatherBase(weather, icon, maintemp, mintemp, maxtemp) {
+function WeatherBase(
+  weather,
+  icon,
+  maintemp,
+  mintemp,
+  maxtemp,
+  pressure,
+  wind,
+  humidity
+) {
   text.textContent = weather;
-  img.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-  temp.textContent = maintemp;
-  tempMinMax.textContent = `${mintemp} | ${maxtemp}`;
-
-  weatherWrapper.append(img, text);
-  wrapper.append(weatherWrapper, temp, tempMinMax);
-  container.appendChild(wrapper);
+  img.src = `http://openweathermap.org/img/wn/${icon}@4x.png`;
+  temp.textContent = `${Math.round(maintemp)}°`;
+  min.innerHTML = `<span>Min</span> ${Math.round(mintemp)}°`;
+  max.innerHTML = `<span>Max</span> ${Math.round(maxtemp)}°`;
+  pressureInfo.textContent = pressure;
+  windInfo.textContent = `${wind} km/h`;
+  humidityInfo.textContent = `${humidity}%`;
 }
 
 function getData() {
@@ -372,14 +381,16 @@ function getData() {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      state.main = data.main;
-      state.weather = data.weather;
+      const windCalc = (data.wind.speed * 3.6).toFixed(2);
       WeatherBase(
-        state.weather[0].main,
-        state.weather[0].icon,
-        state.main.temp,
-        state.main.temp_min,
-        state.main.temp_max
+        data.weather[0].description,
+        data.weather[0].icon,
+        data.main.temp,
+        data.main.temp_min,
+        data.main.temp_max,
+        data.main.pressure,
+        windCalc,
+        data.main.humidity
       );
     });
 }
