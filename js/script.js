@@ -367,7 +367,7 @@ function WeatherBase(weather, icon, maintemp, mintemp, maxtemp) {
 }
 
 function getData() {
-  let url = getUrl(select.value);
+  const url = getUrl(select.value);
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
@@ -394,10 +394,4 @@ state.selectOptions.forEach((e) => {
     option.selected = true;
     getData();
   }
-});
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  getData();
 });
