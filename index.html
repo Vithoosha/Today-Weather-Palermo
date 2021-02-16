@@ -9,13 +9,22 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <main>
+    <header>
       <form class="form">
         <select name="comuni" id="comuni"></select>
-        <button type="submit" class="invio">Ok</button>
+        <button type="submit" class="btn">Ok</button>
       </form>
+    </header>
+    <main>
+      <div class="wrapper">
+        <div class="weather_wrapper">
+          <img class="weather_icon" src="" alt="" />
+          <p class="text"></p>
+        </div>
+        <p class="tempC"></p>
+        <p class="temp_max_min"></p>
+      </div>
     </main>
-
     <script src="js/script.js"></script>
   </body>
 </html>
