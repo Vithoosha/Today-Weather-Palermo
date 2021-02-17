@@ -1,12 +1,18 @@
 "use strict";
 
-const select = document.querySelector("#comuni");
+const select = document.querySelector(".comuni");
+const wrapper = document.querySelector(".wrapper");
 
 const img = document.querySelector(".weather_icon");
 const text = document.querySelector(".text");
-const temp = document.querySelector(".tempC");
+
+const temp = document.querySelector(".temp");
 const min = document.querySelector(".min");
 const max = document.querySelector(".max");
+const tempF = document.querySelector(".tempF");
+const minF = document.querySelector(".minF");
+const maxF = document.querySelector(".maxF");
+
 const pressureInfo = document.querySelector(".pressure");
 const windInfo = document.querySelector(".wind");
 const humidityInfo = document.querySelector(".humidity");
@@ -15,6 +21,8 @@ let state = {
   config: {
     api_key: "9ba7a3bdf9fee25bbfb09c870337694c",
     base_url: "https://api.openweathermap.org/data/2.5/weather?q=",
+    base_img: "http://openweathermap.org/img/wn/",
+    lang: null,
   },
   selectOptions: [
     {
@@ -346,8 +354,6 @@ let state = {
       value: "sclafani+bagni",
     },
   ],
-  main: null,
-  weather: null,
 };
 
 function getUrl(select) {
@@ -366,13 +372,17 @@ function WeatherBase(
   humidity
 ) {
   text.textContent = weather;
-  img.src = `http://openweathermap.org/img/wn/${icon}@4x.png`;
+  img.src = `${state.config.base_img}${icon}@4x.png`;
   temp.textContent = `${Math.round(maintemp)}°`;
   min.innerHTML = `<span>Min</span> ${Math.round(mintemp)}°`;
   max.innerHTML = `<span>Max</span> ${Math.round(maxtemp)}°`;
   pressureInfo.textContent = pressure;
   windInfo.textContent = `${wind} km/h`;
   humidityInfo.textContent = `${humidity}%`;
+
+  tempF.textContent = `${Math.round(maintemp * 1.8 + 32)}°`;
+  minF.innerHTML = `<span>Min</span> ${Math.round(mintemp * 1.8 + 32)}°`;
+  maxF.innerHTML = `<span>Max</span> ${Math.round(maxtemp * 1.8 + 32)}°`;
 }
 
 function getData() {
@@ -395,6 +405,14 @@ function getData() {
     });
 }
 
+function getTemp() {
+  if (state.click === 0) {
+    temp.textContent = `${Math.round(state.temp * 1.8 + 32)}°`;
+    min.innerHTML = `<span>Min</span> ${Math.round(state.tempMin * 1.8 + 32)}°`;
+    max.innerHTML = `<span>Max</span> ${Math.round(state.tempMax * 1.8 + 32)}°`;
+  }
+}
+
 state.selectOptions.forEach((e) => {
   const option = document.createElement("option");
   option.textContent = e.name;
@@ -405,4 +423,11 @@ state.selectOptions.forEach((e) => {
     option.selected = true;
     getData();
   }
+});
+
+wrapper.addEventListener("click", () => {
+  document.querySelector(".temperaturesC").classList.toggle("hidden");
+  document.querySelector(".temperaturesF").classList.toggle("hidden");
+  document.querySelector(".unitC").classList.toggle("hidden");
+  document.querySelector(".unitF").classList.toggle("hidden");
 });

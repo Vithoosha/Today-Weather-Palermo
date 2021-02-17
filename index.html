@@ -10,7 +10,7 @@
   </head>
   <body>
     <header>
-      <select name="comuni" id="comuni" onchange="getData()"></select>
+      <select name="comuni" class="comuni" onchange="getData()"></select>
     </header>
 
     <main>
@@ -18,13 +18,24 @@
         <img src="" alt="" class="weather_icon" />
         <h2 class="text"></h2>
 
-        <div class="temperatures">
-          <h1 class="tempC"></h1>
+        <div class="temperaturesC">
+          <h1 class="temp"></h1>
           <div class="min_max">
             <p class="min"></p>
             <p class="max"></p>
           </div>
         </div>
+
+        <div class="temperaturesF hidden">
+          <h1 class="tempF"></h1>
+          <div class="min_max">
+            <p class="minF"></p>
+            <p class="maxF"></p>
+          </div>
+        </div>
+
+        <p class="unitC">°C | °F 🢂</p>
+        <p class="unitF hidden">°F | °C 🢂</p>
       </div>
 
       <div class="info">
