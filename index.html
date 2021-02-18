@@ -9,16 +9,16 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <header>
-      <select name="comuni" class="comuni" onchange="getData()"></select>
+    <header class="flex">
+      <select name="comuni" class="comuni" onchange="getWeather()"></select>
     </header>
 
-    <main>
-      <div class="wrapper">
+    <main class="flex">
+      <div class="wrapper flex">
         <img src="" alt="" class="weather_icon" />
         <h2 class="text"></h2>
 
-        <div class="temperaturesC">
+        <div class="temperaturesC flex">
           <h1 class="temp"></h1>
           <div class="min_max">
             <p class="min"></p>
@@ -26,7 +26,7 @@
           </div>
         </div>
 
-        <div class="temperaturesF hidden">
+        <div class="temperaturesF flex hidden">
           <h1 class="tempF"></h1>
           <div class="min_max">
             <p class="minF"></p>
@@ -34,20 +34,20 @@
           </div>
         </div>
 
-        <p class="unitC">°C | °F 🢂</p>
-        <p class="unitF hidden">°F | °C 🢂</p>
+        <p class="unitC">°C | °F ➜</p>
+        <p class="unitF hidden">°F | °C ➜</p>
       </div>
 
-      <div class="info">
-        <div class="pressure_info">
+      <div class="info flex">
+        <div class="pressure_info flex">
           <h3>Pressure</h3>
           <p class="pressure"></p>
         </div>
-        <div class="wind_info">
+        <div class="wind_info flex">
           <h3>Wind</h3>
           <p class="wind"></p>
         </div>
-        <div class="humidity_info">
+        <div class="humidity_info flex">
           <h3>Humidity</h3>
           <p class="humidity"></p>
         </div>

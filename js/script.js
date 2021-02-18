@@ -3,26 +3,11 @@
 const select = document.querySelector(".comuni");
 const wrapper = document.querySelector(".wrapper");
 
-const img = document.querySelector(".weather_icon");
-const text = document.querySelector(".text");
-
-const temp = document.querySelector(".temp");
-const min = document.querySelector(".min");
-const max = document.querySelector(".max");
-const tempF = document.querySelector(".tempF");
-const minF = document.querySelector(".minF");
-const maxF = document.querySelector(".maxF");
-
-const pressureInfo = document.querySelector(".pressure");
-const windInfo = document.querySelector(".wind");
-const humidityInfo = document.querySelector(".humidity");
-
 let state = {
   config: {
     api_key: "9ba7a3bdf9fee25bbfb09c870337694c",
     base_url: "https://api.openweathermap.org/data/2.5/weather?q=",
-    base_img: "http://openweathermap.org/img/wn/",
-    lang: null,
+    base_img: "https://openweathermap.org/img/wn/",
   },
   selectOptions: [
     {
@@ -361,6 +346,21 @@ function getUrl(select) {
   return `${base_url}${select}&units=metric&appid=${api_key}`;
 }
 
+async function getData(path) {
+  try {
+    const response = await fetch(path);
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw result;
+    }
+
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 function WeatherBase(
   weather,
   icon,
@@ -371,6 +371,20 @@ function WeatherBase(
   wind,
   humidity
 ) {
+  const img = document.querySelector(".weather_icon");
+  const text = document.querySelector(".text");
+
+  const temp = document.querySelector(".temp");
+  const min = document.querySelector(".min");
+  const max = document.querySelector(".max");
+  const tempF = document.querySelector(".tempF");
+  const minF = document.querySelector(".minF");
+  const maxF = document.querySelector(".maxF");
+
+  const pressureInfo = document.querySelector(".pressure");
+  const windInfo = document.querySelector(".wind");
+  const humidityInfo = document.querySelector(".humidity");
+
   text.textContent = weather;
   img.src = `${state.config.base_img}${icon}@4x.png`;
   temp.textContent = `${Math.round(maintemp)}°`;
@@ -385,24 +399,21 @@ function WeatherBase(
   maxF.innerHTML = `<span>Max</span> ${Math.round(maxtemp * 1.8 + 32)}°`;
 }
 
-function getData() {
+async function getWeather() {
   const url = getUrl(select.value);
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      const windCalc = (data.wind.speed * 3.6).toFixed(2);
-      WeatherBase(
-        data.weather[0].description,
-        data.weather[0].icon,
-        data.main.temp,
-        data.main.temp_min,
-        data.main.temp_max,
-        data.main.pressure,
-        windCalc,
-        data.main.humidity
-      );
-    });
+  const data = await getData(url);
+  console.log(data);
+  const windCalc = (data.wind.speed * 3.6).toFixed(2);
+  WeatherBase(
+    data.weather[0].description,
+    data.weather[0].icon,
+    data.main.temp,
+    data.main.temp_min,
+    data.main.temp_max,
+    data.main.pressure,
+    windCalc,
+    data.main.humidity
+  );
 }
 
 function getTemp() {
@@ -421,7 +432,7 @@ state.selectOptions.forEach((e) => {
 
   if (option.value === "palermo") {
     option.selected = true;
-    getData();
+    getWeather();
   }
 });
 

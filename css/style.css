@@ -5,7 +5,6 @@
 *::after {
   box-sizing: border-box;
 }
-
 h1,
 h2,
 p,
@@ -13,18 +12,7 @@ img {
   padding: 0;
   margin: 0;
 }
-
-/* FLEX */
-
-header,
-main,
-.wrapper,
-.temperaturesC,
-.temperaturesF,
-.info,
-.pressure_info,
-.wind_info,
-.humidity_info {
+.flex {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,8 +26,6 @@ main,
 .humidity_info {
   flex-direction: column;
 }
-
-/**********/
 body {
   position: relative;
   background-image: linear-gradient(#858cca, #85d0ff);
@@ -47,13 +33,9 @@ body {
   font-family: "Roboto", Arial, Helvetica, sans-serif;
   color: rgb(255, 255, 255);
 }
-
-/**** HEADER ****/
 header {
   height: 80px;
 }
-
-/* SELECT */
 .comuni {
   background-color: inherit;
   border: 0;
@@ -70,10 +52,6 @@ option {
   background-color: #858cca;
   font-size: 1rem;
 }
-
-/*** MAIN ***/
-
-/* WEATHER */
 .wrapper {
   position: relative;
   background-color: rgba(255, 255, 255, 0.116);
@@ -82,25 +60,18 @@ option {
   box-shadow: 5px 5px 8px 5px rgba(0, 0, 0, 0.021);
   padding: 5px;
 }
-
 .text {
   text-transform: capitalize;
 }
-
 .temperaturesF,
 .temperaturesC {
   margin-top: 10px;
 }
-
 .tempF,
 .temp {
   font-size: 3rem;
 }
-
 .min_max {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   margin-left: 15px;
 }
 .min span:first-child,
@@ -111,7 +82,6 @@ option {
 .maxF span:first-child {
   color: #c04545;
 }
-
 .unitF,
 .unitC {
   position: absolute;
@@ -119,8 +89,6 @@ option {
   right: 5px;
   font-size: 0.8rem;
 }
-
-/* EXTRA INFO */
 .info {
   position: absolute;
   bottom: 0;
@@ -132,8 +100,18 @@ option {
 .info h3 {
   margin: 10px;
 }
-
-/*****/
 .hidden {
   display: none;
+}
+@media (min-width: 1024px) {
+  .comuni {
+    width: 400px;
+  }
+  .wrapper {
+    cursor: pointer;
+    width: 800px;
+  }
+  .wrapper > * {
+    margin: 15px;
+  }
 }
